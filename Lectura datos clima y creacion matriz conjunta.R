@@ -74,7 +74,7 @@ lecto_escritura_clima=function(clima,nombre_archivos,co2){
     
     #Union de las matrices de clima con la matriz de datos original+co2
     matriz_ampliada_clima=matrix(nrow = fil, ncol = 11)
-    
+
     for(i in c(1:fil)){
       if(crecimiento[i,2]==temperatura[1,1]){
         #print(i)
@@ -107,10 +107,24 @@ lecto_escritura_clima=function(clima,nombre_archivos,co2){
     
     colnames(matriz_ampliada_clima)=c("Year","Taup","Twi","Tsp","Tsum","Tau","Paup","Pwi","Psp","Psum","Pau")
     
+
+
     conjunta=cbind(crecimiento,z)
     conjunta=cbind(conjunta,matriz_ampliada_clima)
+
+    #Hacemos un loop para eliminar aquellos valores de bai que sean NA o que sean 0
     
-    #Eliminamos las filas que tengan edad inferior a 3 a?os
+    contador_filas_eliminadas=0
+    for(i in c(1:nrow(conjunta))){
+       if(conjunta$bai[i]==0 || is.na(conjunta[i,9])==TRUE){
+          #conjunta=conjunta[-(i-contador_filas_eliminadas),]
+          contador_filas_eliminadas=contador_filas_eliminadas+1
+          print(contador_filas_eliminadas)
+       }
+    }
+
+
+    #Eliminamos las filas que tengan edad inferior a 3 a�os
     #Primero convertimos las filas de la tabla original de crecimiento en NA
     for(i in c(1:fil)){
       if(crecimiento[i,8]<3){
