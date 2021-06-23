@@ -1,3 +1,5 @@
+#Estamos haciendo una funcion para que lea todos los archivos de una carpeta en xlsx y que despues se modifiquen todos los archivos.
+
 library(openxlsx)
 
 nombre_archivos=list.files(path="D:/pablo/Desktop/Lo mas actualizado/Doctorado/Manuscrito 7 (Himalaya)/ArchivosExcel/Calculado_Incremento_BAI/Archivos_MLM_JuanCarlos")
@@ -21,7 +23,7 @@ lecto_escritura_clima=function(clima,nombre_archivos,co2){
     fil=dimension[1]
     col=dimension[2]
     
-    #Añadimos el valor de co2 para cada poblacion
+    #A?adimos el valor de co2 para cada poblacion
     z=matrix(nrow = fil, ncol = 1)
     
     crecimiento[,2]=as.numeric(crecimiento[,2])
@@ -108,7 +110,7 @@ lecto_escritura_clima=function(clima,nombre_archivos,co2){
     conjunta=cbind(crecimiento,z)
     conjunta=cbind(conjunta,matriz_ampliada_clima)
     
-    #Eliminamos las filas que tengan edad inferior a 3 años
+    #Eliminamos las filas que tengan edad inferior a 3 a?os
     #Primero convertimos las filas de la tabla original de crecimiento en NA
     for(i in c(1:fil)){
       if(crecimiento[i,8]<3){
