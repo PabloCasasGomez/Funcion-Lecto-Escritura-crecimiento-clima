@@ -17,6 +17,7 @@ lecto_escritura_clima=function(clima,nombre_archivos,co2){
 
     #Lectura de archivos de crecimiento
     n=nombre_archivos[[j]]
+    print(n)
     crecimiento=read.xlsx(paste("D:/pablo/Desktop/Lo mas actualizado/Doctorado/Manuscrito 7 (Himalaya)/ArchivosExcel/Calculado_Incremento_BAI/Archivos_MLM_JuanCarlos/",n,sep=""), colNames=TRUE,rowNames=TRUE)
     
     dimension=dim(crecimiento)
@@ -31,8 +32,8 @@ lecto_escritura_clima=function(clima,nombre_archivos,co2){
     
     for(i in c(1:fil)){
       if(crecimiento[i,2]==co2[1,1]){
-        print("\n")
-        print(crecimiento[i,2])
+        #print("\n")
+        #print(crecimiento[i,2])
         contador=i
         for(o in c(1:(maximo-1880))){
           z[contador,1]=co2[o,2]
@@ -45,7 +46,7 @@ lecto_escritura_clima=function(clima,nombre_archivos,co2){
     
     #Lectura de archivos de temperatura y precipitacion para cada archivo
     temperatura=clima$Nombre.Archivo.Temp[j]
-    print(temperatura)
+    print(clima$Sitecode[j])
     
     temperatura=read.xlsx(paste("D:/pablo/Desktop/Lo mas actualizado/Doctorado/Manuscrito 7 (Himalaya)/CRU/",temperatura,".xlsx",sep=""))
     
@@ -100,7 +101,7 @@ lecto_escritura_clima=function(clima,nombre_archivos,co2){
           contador=contador+1
           i=i+1
           j=j+1
-          print(i)
+          #print(i)
         }
       }
     }
@@ -111,17 +112,6 @@ lecto_escritura_clima=function(clima,nombre_archivos,co2){
 
     conjunta=cbind(crecimiento,z)
     conjunta=cbind(conjunta,matriz_ampliada_clima)
-
-    #Hacemos un loop para eliminar aquellos valores de bai que sean NA o que sean 0
-    
-    contador_filas_eliminadas=0
-    for(i in c(1:nrow(conjunta))){
-       if(conjunta$bai[i]==0 || is.na(conjunta[i,9])==TRUE){
-          #conjunta=conjunta[-(i-contador_filas_eliminadas),]
-          contador_filas_eliminadas=contador_filas_eliminadas+1
-          print(contador_filas_eliminadas)
-       }
-    }
 
 
     #Eliminamos las filas que tengan edad inferior a 3 a�os
@@ -140,7 +130,17 @@ lecto_escritura_clima=function(clima,nombre_archivos,co2){
         contador_filas_eliminadas=contador_filas_eliminadas+1
       }
     }
+   
+    #Hacemos un loop para eliminar aquellos valores de bai que sean NA o que sean 0
     
+    contador_filas_eliminadas=0
+    for(i in c(1:nrow(conjunta))){
+      if(conjunta$bai[i]==0 || is.na(conjunta[i,9])==TRUE){
+        conjunta=conjunta[-(i-contador_filas_eliminadas),]
+        contador_filas_eliminadas=contador_filas_eliminadas+1
+      }
+    }
+     
     write.xlsx(conjunta,paste("D:/pablo/Desktop/Lo mas actualizado/Doctorado/Manuscrito 7 (Himalaya)/ArchivosExcel/Calculado_Incremento_BAI/Archivos_MLM_JuanCarlos/Archivos MLM con clima/",n,sep=""))
   }
 }
