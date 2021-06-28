@@ -135,11 +135,12 @@ lecto_escritura_clima=function(clima,nombre_archivos,co2){
     
     contador_filas_eliminadas=0
     for(i in c(1:nrow(conjunta))){
-      if(conjunta$bai[i]==0 || is.na(conjunta[i,9])==TRUE){
+      if(conjunta$bai[i]==0 || conjunta$baip[i]==0 ||is.na(conjunta[i,9])==TRUE){
         conjunta=conjunta[-(i-contador_filas_eliminadas),]
         contador_filas_eliminadas=contador_filas_eliminadas+1
       }
     }
+    
      
     write.xlsx(conjunta,paste("D:/pablo/Desktop/Lo mas actualizado/Doctorado/Manuscrito 7 (Himalaya)/ArchivosExcel/Calculado_Incremento_BAI/Archivos_MLM_JuanCarlos/Archivos MLM con clima/",n,sep=""))
   }
