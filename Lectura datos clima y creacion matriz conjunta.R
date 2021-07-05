@@ -32,8 +32,6 @@ lecto_escritura_clima=function(clima,nombre_archivos,co2){
     
     for(i in c(1:fil)){
       if(crecimiento[i,2]==co2[1,1]){
-        #print("\n")
-        #print(crecimiento[i,2])
         contador=i
         for(o in c(1:(maximo-1880))){
           z[contador,1]=co2[o,2]
@@ -71,19 +69,16 @@ lecto_escritura_clima=function(clima,nombre_archivos,co2){
       matriz_clima[i,11]=precipitacion[(i),10]+precipitacion[(i),11]+precipitacion[(i),12] #Pau
     }
     
-    colnames(matriz_clima)=c("Year","Taup","Twi","Tsp","Tsum","Tau","Paup","Pwi","Psp","Psum","Pau")
+    colnames(matriz_clima)=c("Year","Taup","Twi","Tsp","Tsu","Tau","Paup","Pwi","Psp","Psu","Pau")
     
     #Union de las matrices de clima con la matriz de datos original+co2
     matriz_ampliada_clima=matrix(nrow = fil, ncol = 11)
 
     for(i in c(1:fil)){
       if(crecimiento[i,2]==temperatura[1,1]){
-        #print(i)
-        #print("\n")
-        #print(crecimiento[i,2])
         contador=i
         j=1
-        while(j<nrow(temperatura)&& i<fil){
+        while(j<nrow(temperatura) && i<fil){
           matriz_ampliada_clima[contador,1]=matriz_clima[j,1]
           
           matriz_ampliada_clima[contador,2]=matriz_clima[j,2]
@@ -101,12 +96,11 @@ lecto_escritura_clima=function(clima,nombre_archivos,co2){
           contador=contador+1
           i=i+1
           j=j+1
-          #print(i)
         }
       }
     }
     
-    colnames(matriz_ampliada_clima)=c("Year","Taup","Twi","Tsp","Tsum","Tau","Paup","Pwi","Psp","Psum","Pau")
+    colnames(matriz_ampliada_clima)=c("Year","Taup","Twi","Tsp","Tsu","Tau","Paup","Pwi","Psp","Psu","Pau")
     
 
 
@@ -141,6 +135,12 @@ lecto_escritura_clima=function(clima,nombre_archivos,co2){
       }
     }
     
+    #Loop para eliminar los valores de clima que no se correspondan con el año adecuado
+    for(i in c(1:nrow(conjunta))){
+      if(is.na(conjunta[i,2]!=conjunta[i,13])==TRUE){
+        conjunta[1,c(14,23)]=NA
+      }
+    }
      
     write.xlsx(conjunta,paste("D:/pablo/Desktop/Lo mas actualizado/Doctorado/Manuscrito 7 (Himalaya)/ArchivosExcel/Calculado_Incremento_BAI/Archivos_MLM_JuanCarlos/Archivos MLM con clima/",n,sep=""))
   }
