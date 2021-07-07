@@ -78,7 +78,7 @@ lecto_escritura_clima=function(clima,nombre_archivos,co2){
       if(crecimiento[i,2]==temperatura[1,1]){
         contador=i
         j=1
-        while(j<nrow(temperatura) && i<fil){
+        while(j<=nrow(temperatura) && i<=fil){
           matriz_ampliada_clima[contador,1]=matriz_clima[j,1]
           
           matriz_ampliada_clima[contador,2]=matriz_clima[j,2]
