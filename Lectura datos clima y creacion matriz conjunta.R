@@ -33,7 +33,7 @@ lecto_escritura_clima=function(clima,nombre_archivos,co2){
     for(i in c(1:fil)){
       if(crecimiento[i,2]==co2[1,1]){
         contador=i
-        for(o in c(1:(maximo-1880))){
+        for(o in c(1:((maximo+1)-1880))){
           z[contador,1]=co2[o,2]
           contador=contador+1
         }
