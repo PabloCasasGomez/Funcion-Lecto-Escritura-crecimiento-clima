@@ -4,6 +4,8 @@ library(ggplot2)
 nombre_archivos=list.files(path="D:/pablo/Desktop/Lo mas actualizado/Doctorado/Manuscrito 7 (Himalaya)/CRU")
 nombre_archivos=nombre_archivos[!nombre_archivos %in% c("RCP 85","RCP 45","Graficas tendencias")]
 
+graficas_clima=function(nombre_archivos){
+
 for(n in nombre_archivos){
   setwd("D:/pablo/Desktop/Lo mas actualizado/Doctorado/Manuscrito 7 (Himalaya)/CRU")
   data=read.xlsx(n)
@@ -43,4 +45,5 @@ for(n in nombre_archivos){
     ggsave(paste("D:/pablo/Desktop/Lo mas actualizado/Doctorado/Manuscrito 7 (Himalaya)/CRU/Graficas tendencias/",substr(n, 1, 20),".png"),grafica_final)
   }
   
+  }
 }
